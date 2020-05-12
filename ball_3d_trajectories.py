@@ -2,6 +2,7 @@ import functools
 
 import tqdm
 import cv2
+import pickle
 from imutils import paths
 import numpy as np
 
@@ -54,24 +55,41 @@ def detect_ball_for_match(video_or_image_dir, start_frame, end_frame, ball_detec
     return frame_based_result
 
 
-def detect_reconstruct_and_track_in_range(cameras, videos_or_image_dirs, time_region, cfg):
-    start_frame, end_frame = time_region
-    print('video total num: {}'.format(end_frame - start_frame + 1))
-
+def detect_reconstruct_and_track_in_range(cameras, videos_or_image_dirs, cfg):
+    start_frame = 90
+    end_frame = 140
     view_trajectories = list()
     ball_detector = ball_detection.BallDetector(cfg)
     for i, (camera, video_or_image_dir) in enumerate(zip(cameras, videos_or_image_dirs)):
+        if(start_frame == 0 and end_frame == 0):   
+            cap = cv2.VideoCapture(video_or_image_dir)
+            frame_num = cap.get(cv2.CAP_PROP_FRAME_COUNT)
+            start_frame, end_frame = (0.0,frame_num)
+        print('video total num: {}'.format(end_frame - start_frame + 1))
         frame_base_balls = detect_ball_for_match(video_or_image_dir, start_frame, end_frame, ball_detector)
         tracklet_heads = track_inference.track_balls(frame_base_balls, cfg.ball_delta_frame, cfg.ball_radius_parameter)
         trajectories = track_inference.parse_tracklet_heads(tracklet_heads, drop_short_tracklet=cfg.ball_2d_short_drop,
                                                             short_thresh=cfg.ball_2d_short_thresh)
-
         vis.vis_trajectories(trajectories, video_or_image_dir, out_fps=10,
-                             out_video_file=os.path.join(cfg.ball_vis_dir, 'ball{}_out.mp4'.format(i))
+                             out_video_file=os.path.join(cfg.ball_vis_dir, 'output1_{}.mp4'.format(i))
                              )
-
+        output_list = list()
+        j=start_frame
+        while j < end_frame:
+            for ty, trajectory in enumerate(trajectories):
+                    if trajectory.get(j):
+                        rect = trajectory[j]
+                        temp = rect.output_traj()
+                        output_list.append(temp)
+            j += 1
+        file=open('output_traj{}.view'.format(i),'w')
+        for item in output_list:
+            file.write(str(item))
+            file.write('\n')
+        file.close()
+        with open('output_traj{}.txt'.format(i), 'wb') as f:
+            pickle.dump(output_list, f)
         view_trajectories.append(trajectories)
-
 
 def velocity_constraint(sequence_ball_trajectory, velocity_thresh=0, fps=0):
     ball_average_speed = sequence_ball_trajectory.average_speed(fps)
@@ -100,7 +118,8 @@ if __name__ == '__main__':
 
     cfg = Config()
     cfg.init_config()
-
     sequence_ball_trajectories = detect_reconstruct_and_track_in_range(
-        cfg.ball_cameras, cfg.ball_videos, (5, 142), cfg
+        cfg.ball_cameras, cfg.ball_videos, cfg
     )
+    print(sequence_ball_trajectories)
+    

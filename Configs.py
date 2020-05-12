@@ -11,7 +11,8 @@ class Config:
         self.camera_parameter = os.path.join(self.root, 'camera_parameter')
         self.ball_vis_dir = os.path.join(self.root, 'ball_vis')
         self.camera_ids = [0]
-        self.ball_camera_ids = [0]
+        # self.ball_camera_ids = list(range(1,8))
+        self.ball_camera_ids = [1,2]
 
         self.use_gpu = True
 
@@ -55,11 +56,13 @@ class Config:
         ]
 
         self.out_videos = [
-            os.path.join(self.task_root, 'cam{}_out.mp4'.format(cam_id)) for cam_id in self.camera_ids
+            os.path.join(self.task_root, 'output_out{}.mp4'.format(cam_id)) for cam_id in self.camera_ids
         ]
 
         self.ball_videos = [
-            os.path.join(self.task_root, 'cam{}.mp4'.format(cam_id)) for cam_id in self.ball_camera_ids
+            os.path.join(self.task_root, 'output1_{}.mp4'.format(cam_id)) for cam_id in self.ball_camera_ids
+            # os.path.join(self.task_root, 'set2.mp4') for cam_id in self.ball_camera_ids
+
         ]
 
         self.fps = 50

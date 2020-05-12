@@ -25,6 +25,9 @@ class Rect(BaseTrackObj.BaseTrackObj):
     def radius(self):
         return self.area ** 0.5
 
+    def output_traj(self):
+        return [self.track_id, self.frame_index, self.center[0], self.center[1]]
+
     def show_in_frame(self, frame):
         xmin, ymin, xmax, ymax, score = self.xmin, self.ymin, self.xmax, self.ymax, self.score
         text_pos = (int((xmin + xmax) / 2), int(ymin - 10))

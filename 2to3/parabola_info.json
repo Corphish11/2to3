@@ -1,0 +1,87 @@
+[
+    {
+        "ball_id": 3,
+        "start_frame": 4,
+        "end_frame": 54
+    },
+    {
+        "ball_id": 20,
+        "start_frame": 379,
+        "end_frame": 429
+    },
+    {
+        "ball_id": 37,
+        "start_frame": 718,
+        "end_frame": 769
+    },
+    {
+        "ball_id": 54,
+        "start_frame": 1038,
+        "end_frame": 1089
+    },
+    {
+        "ball_id": 62,
+        "start_frame": 1198,
+        "end_frame": 1245
+    },
+    {
+        "ball_id": 71,
+        "start_frame": 1380,
+        "end_frame": 1428
+    },
+    {
+        "ball_id": 77,
+        "start_frame": 1553,
+        "end_frame": 1598
+    },
+    {
+        "ball_id": 83,
+        "start_frame": 1775,
+        "end_frame": 1822
+    },
+    {
+        "ball_id": 92,
+        "start_frame": 1954,
+        "end_frame": 1999
+    },
+    {
+        "ball_id": 101,
+        "start_frame": 2139,
+        "end_frame": 2184
+    },
+    {
+        "ball_id": 108,
+        "start_frame": 2305,
+        "end_frame": 2355
+    },
+    {
+        "ball_id": 119,
+        "start_frame": 2632,
+        "end_frame": 2678
+    },
+    {
+        "ball_id": 157,
+        "start_frame": 3182,
+        "end_frame": 3234
+    },
+    {
+        "ball_id": 169,
+        "start_frame": 3517,
+        "end_frame": 3565
+    },
+    {
+        "ball_id": 209,
+        "start_frame": 4189,
+        "end_frame": 4238
+    },
+    {
+        "ball_id": 234,
+        "start_frame": 4527,
+        "end_frame": 4575
+    },
+    {
+        "ball_id": 250,
+        "start_frame": 4815,
+        "end_frame": 4862
+    }
+]
